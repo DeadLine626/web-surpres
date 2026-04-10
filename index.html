@@ -3,192 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selamat Ulang Tahun  buat kamuu!</title>
+    <title>Halaman Kejutan - Full Foto!</title>
     <style>
-        /* Mengatur tema keseluruhan menjadi biru */
+        /* Mengatur dasar halaman */
         body {
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); /* Gradien biru malam gelap */
             color: white;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Bagian Header/Judul atas */
+        .header {
             text-align: center;
-            overflow: hidden;
+            padding: 60px 20px;
+            animation: fadeInDown 1s ease-out;
         }
 
-        /* Kotak utama di tengah layar */
-        .container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            animation: fadeIn 1.5s ease-in-out;
-            max-width: 500px;
-            width: 90%;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- STYLING UNTUK FOTO --- */
-        .foto-profil {
-            width: 180px;
-            height: 180px;
-            object-fit: cover; /* Agar foto tidak gepeng */
-            border-radius: 50%; /* Membuat foto menjadi bulat */
-            border: 5px solid #00c6ff;
+        .header h1 {
+            font-size: 3em;
+            margin: 0;
+            text-shadow: 0 0 15px rgba(0, 198, 255, 0.7);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        /* --- STYLING UTAMA: GALERI FOTO GRID --- */
+        .gallery-container {
+            padding: 0 20px 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            /* Membuat grid otomatis yang responsif */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-gap: 20px; /* Jarak antar foto */
+            grid-auto-flow: dense; /* Mengisi ruang kosong */
+        }
+
+        /* Bingkai untuk setiap foto */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            margin-bottom: 20px;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        /* Animasi foto melayang kecil */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-
-        h1 {
-            font-size: 2.8em;
-            margin-top: 0;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        p {
-            font-size: 1.1em;
-            margin-bottom: 30px;
-            line-height: 1.5;
-        }
-
-        /* Tombol utama */
-        button {
-            background-color: #00c6ff;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            font-size: 1.1em;
-            font-weight: bold;
-            border-radius: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
-            transition: transform 0.3s, background 0.3s;
-            box-shadow: 0 4px 15px rgba(0, 198, 255, 0.4);
+            aspect-ratio: 1 / 1; /* Membuat kotak foto persegi default */
+            animation: fadeInUp 1s ease-out;
         }
 
-        button:hover {
-            transform: scale(1.05);
-            background-color: #0072ff;
+        /* Animasi muncul untuk setiap foto */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- STYLING UNTUK EFEK POPUP --- */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
+        /* Efek hover (saat kursor di atas foto) */
+        .gallery-item:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 198, 255, 0.5);
+            z-index: 10;
+        }
+
+        /* Membuat beberapa foto menjadi ukuran besar (opsional, untuk variasi) */
+        .gallery-item.w-2 { grid-column: span 2; aspect-ratio: 2 / 1; } /* Lebar */
+        .gallery-item.h-2 { grid-row: span 2; aspect-ratio: 1 / 2; } /* Tinggi */
+
+        /* Mengatur gambar di dalam bingkai */
+        .gallery-item img {
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
+            object-fit: cover; /* Foto dipotong pas, tidak gepeng */
+            transition: transform 0.5s ease;
         }
 
-        .modal-content {
-            background: #ffffff;
-            color: #333333;
-            padding: 40px;
-            border-radius: 20px;
-            width: 85%;
-            max-width: 400px;
-            text-align: center;
-            position: relative;
-            animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        /* Efek zoom gambar saat hover */
+        .gallery-item:hover img {
+            transform: scale(1.1);
         }
 
-        @keyframes popIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .modal-content h2 {
-            color: #1e3c72;
-            margin-top: 0;
-            font-size: 1.8em;
-        }
-
-        .btn-goto {
-            background-color: #1e3c72;
-            margin-top: 20px;
-            width: 100%;
-        }
-
-        .btn-goto:hover {
-            background-color: #2a5298;
-        }
-
-        .close-btn {
+        /* Tulisan/Caption kecil saat hover (opsional) */
+        .gallery-item .caption {
             position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 1.8em;
-            cursor: pointer;
-            color: #aaaaaa;
-            transition: color 0.3s;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+            font-size: 0.9em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .close-btn:hover {
-            color: #ff4757;
+        .gallery-item:hover .caption {
+            opacity: 1;
+        }
+
+        /* Tombol kembali di bawah */
+        .back-btn-container {
+            text-align: center;
+            padding-bottom: 50px;
+        }
+
+        .back-btn {
+            background-color: transparent;
+            color: #00c6ff;
+            border: 2px solid #00c6ff;
+            padding: 12px 30px;
+            font-size: 1em;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            background-color: #00c6ff;
+            color: #0f2027;
+            box-shadow: 0 0 15px rgba(0, 198, 255, 0.5);
+        }
+
+        /* Responsif untuk layar HP kecil */
+        @media (max-width: 600px) {
+            .header h1 { font-size: 2.2em; }
+            .gallery-container { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); grid-gap: 10px; }
+            .gallery-item.w-2 { grid-column: span 1; aspect-ratio: 1/1; } /* Matikan variasi lebar di HP */
+            .gallery-item.h-2 { grid-row: span 1; aspect-ratio: 1/1; } /* Matikan variasi tinggi di HP */
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <img src="hehe.jpg" alt="Foto Ulang Tahun" class="foto-profil">
+    <div class="header">
+        <h1>Moments of You ✨</h1>
+        <p>Intinya aku mau bilang makasihh banget sama kamu 
+            maaf ya kalau aku jarnag bales chat atau aku terlalu sibuk.</p>
+    </div>
+
+    <div class="gallery-container">
         
-        <h1>Selamat Ulang Tahun Elvaaaa! 🎂</h1>
-        <p>Selamat ulang tahun. Semoga di usia yang baru ini, semua harapan baik yang kamu simpan pelan-pelan menemukan jalannya. Semoga langkahmu selalu dikuatkan, hatimu tetap hangat, dan kamu nggak pernah kehabisan alasan untuk percaya bahwa hal-hal indah masih menunggumu di depan.
-</p>
-        <button onclick="bukaPopup()">Buka Kejutan</button>
-    </div>
-
-    <div class="modal-overlay" id="popupKejutan">
-        <div class="modal-content">
-            <span class="close-btn" onclick="tutupPopup()">&times;</span>
-            <h2>Ada Hadiah buat kamu lohh! 🎁</h2>
-            <p>Klik tombol di bawah ini yaaa.</p>
-            
-            <button class="btn-goto" onclick="pergiKeLink()">Lanjut ke Kejutan</button>
+        <div class="gallery-item w-2"> <img src="poto3.png" alt="Kenangan 1">
+            <div class="caption">AKU TAKUTT ADA GURUU</div>
         </div>
+
+        <div class="gallery-item">
+            <img src="foto1.jpg" alt="Kenangan 2">
+            <div class="caption">liat deh ini aku foto diem diem tapi kameranya jelekT_T</div>
+        </div>
+
+        <div class="gallery-item h-2"> <img src="poto2.png" alt="Kenangan 3">
+        </div class="caption">
+
+        <div class="gallery-item">
+            <img src="poto4.png" alt="Kenangan 4">
+        </div>
+
+        </div>
+
+    <div class="back-btn-container">
+        <a href="webnya.html" class="back-btn">← Kembali</a>
     </div>
-
-    <script>
-        function bukaPopup() {
-            document.getElementById('popupKejutan').style.display = 'flex';
-        }
-
-        function tutupPopup() {
-            document.getElementById('popupKejutan').style.display = 'none';
-        }
-
-        function pergiKeLink() {
-            // ==========================================
-            // GANTI LINK TUJUAN POPUP DI BAWAH INI:
-            // ==========================================
-            const linkTujuan = "https://web-surpres.vercel.app/"; 
-            window.location.href = linkTujuan;
-        }
-    </script>
 
 </body>
 </html>
