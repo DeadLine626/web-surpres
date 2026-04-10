@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Kejutan - Full Foto!</title>
+    <style>
+        /* Mengatur dasar halaman */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); /* Gradien biru malam gelap */
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* Bagian Header/Judul atas */
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin: 0;
+            text-shadow: 0 0 15px rgba(0, 198, 255, 0.7);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        /* --- STYLING UTAMA: GALERI FOTO GRID --- */
+        .gallery-container {
+            padding: 0 20px 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            /* Membuat grid otomatis yang responsif */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-gap: 20px; /* Jarak antar foto */
+            grid-auto-flow: dense; /* Mengisi ruang kosong */
+        }
+
+        /* Bingkai untuk setiap foto */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            aspect-ratio: 1 / 1; /* Membuat kotak foto persegi default */
+            animation: fadeInUp 1s ease-out;
+        }
+
+        /* Animasi muncul untuk setiap foto */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Efek hover (saat kursor di atas foto) */
+        .gallery-item:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 198, 255, 0.5);
+            z-index: 10;
+        }
+
+        /* Membuat beberapa foto menjadi ukuran besar (opsional, untuk variasi) */
+        .gallery-item.w-2 { grid-column: span 2; aspect-ratio: 2 / 1; } /* Lebar */
+        .gallery-item.h-2 { grid-row: span 2; aspect-ratio: 1 / 2; } /* Tinggi */
+
+        /* Mengatur gambar di dalam bingkai */
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Foto dipotong pas, tidak gepeng */
+            transition: transform 0.5s ease;
+        }
+
+        /* Efek zoom gambar saat hover */
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Tulisan/Caption kecil saat hover (opsional) */
+        .gallery-item .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+            font-size: 0.9em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .caption {
+            opacity: 1;
+        }
+
+        /* Tombol kembali di bawah */
+        .back-btn-container {
+            text-align: center;
+            padding-bottom: 50px;
+        }
+
+        .back-btn {
+            background-color: transparent;
+            color: #00c6ff;
+            border: 2px solid #00c6ff;
+            padding: 12px 30px;
+            font-size: 1em;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            background-color: #00c6ff;
+            color: #0f2027;
+            box-shadow: 0 0 15px rgba(0, 198, 255, 0.5);
+        }
+
+        /* Responsif untuk layar HP kecil */
+        @media (max-width: 600px) {
+            .header h1 { font-size: 2.2em; }
+            .gallery-container { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); grid-gap: 10px; }
+            .gallery-item.w-2 { grid-column: span 1; aspect-ratio: 1/1; } /* Matikan variasi lebar di HP */
+            .gallery-item.h-2 { grid-row: span 1; aspect-ratio: 1/1; } /* Matikan variasi tinggi di HP */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Moments of You ✨</h1>
+        <p>Intinya aku mau bilang makasihh banget sama kamu 
+            maaf ya kalau aku jarnag bales chat atau aku terlalu sibuk.</p>
+    </div>
+
+    <div class="gallery-container">
+        
+        <div class="gallery-item w-2"> <img src="poto3.png" alt="Kenangan 1">
+            <div class="caption">AKU TAKUTT ADA GURUU</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="foto1.jpg" alt="Kenangan 2">
+            <div class="caption">liat deh ini aku foto diem diem tapi kameranya jelekT_T</div>
+        </div>
+
+        <div class="gallery-item h-2"> <img src="poto2.png" alt="Kenangan 3">
+        </div class="caption">
+
+        <div class="gallery-item">
+            <img src="poto4.png" alt="Kenangan 4">
+        </div>
+
+        </div>
+
+    <div class="back-btn-container">
+        <a href="webnya.html" class="back-btn">← Kembali</a>
+    </div>
+
+</body>
+</html>
